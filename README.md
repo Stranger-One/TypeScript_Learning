@@ -316,4 +316,138 @@ class User {
 }
 ```
 
+### Getters and Setters
+- Control access to class properties
+- Encapsulate property access and modification
+```typescript
+class User {
+    private _name: string = '';
+    private _age: number = 0;
+
+    get name() {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
+
+    get age() {
+        return this._age;
+    }
+
+    set age(value: number) {
+        this._age = value;
+    }
+}
+
+const user = new User();
+user.name = 'John';     // Uses setter
+console.log(user.name); // Uses getter
+```
+
+### Static Members
+- Belong to the class itself, not instances
+- Shared among all instances of the class
+- Accessed using the class name
+- Defined using the `static` keyword
+```typescript
+class User {
+    static count: number = 0;
+}
+
+console.log(User.count); // Access static property directly from class
+```
+
+## Functions
+TypeScript supports various function features and patterns.
+
+### Callback Functions
+Functions that accept other functions as parameters:
+```typescript
+function abcd(name: string, age: number, cb: () => void) {
+    cb();
+}
+
+// Usage with arrow function callback
+abcd("max", 20, () => {
+    console.log("hey max");
+});
+
+// Callback with parameters
+function abcd2(name: string, model: number, cb: (arg: string) => void) {
+    cb("hello");
+}
+```
+
+### Optional and Default Parameters
+Two ways to handle optional parameters:
+
+1. Optional Parameters (?)
+```typescript
+function details(name: string, age: number, gender?: string) {
+    console.log(name, age, gender);
+}
+
+details("kuch v", 7, "male");  // All parameters
+details("aur kuch", 67);       // Without optional parameter
+```
+
+2. Default Parameters
+```typescript
+function details2(name: string, age: number, gender: string = "dont know") {
+    console.log(name, age, gender);
+}
+
+details2("kuch v", 7, "male");  // Override default
+details2("aur kuch", 67);       // Use default
+```
+
+### Rest and Spread Operators
+1. Rest Parameters
+```typescript
+function sum(...val: number[]) {
+    console.log(val);
+}
+sum(1, 2, 2, 3, 4, 5, 6, 78);
+
+function cities(...val: string[]) {
+    console.log(val);
+}
+cities("sambalpur", "bhubaneswar");
+```
+
+2. Spread Operator
+```typescript
+const arr1 = [1, 2, 3, 4, 5];
+const arr2 = [6, 7, 8, 9, 0];
+
+const arr3 = [...arr1];           // Copy array
+const arr4 = [...arr1, ...arr2];  // Merge arrays
+```
+
+### Function Overloading
+Define multiple function signatures for different parameter types:
+
+```typescript
+// Overloads with same parameter count
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: any, b: any): any {
+    return a + b;
+}
+
+// Overloads with different parameter count
+function display(value: string): void;
+function display(value: number, isActive: boolean): void;
+function display(value: any, isActive?: boolean): void {
+    if (typeof value === "number") {
+        console.log(`Number: ${value}, Active: ${isActive}`);
+    } else {
+        console.log(`String: ${value}`);
+    }
+}
+```
+
+
 

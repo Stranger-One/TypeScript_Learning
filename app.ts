@@ -1,54 +1,88 @@
-class User{
-    constructor(public name: string, public age: number){  }
+// Functions 
+function abcd(name:string, age:number, cb: ()=>void){
+    cb()
 }
 
+abcd("max", 20, ()=>{
+    console.log("hey max line 7");
+})
 
 
-const user1 = new User('John', 30);
-user1.name = 'Doe';
-console.log(user1.name)
-
-//  getter and setter
-
-class User1{
-    private _name: string = '';
-    private _age: number = 0;
-
-    get name(){
-        return this._name;
-    }
-
-    set name(value: string){
-        this._name = value;
-    }
-
-    get age(){
-        return this._age;
-    }
-
-    set age(value: number){
-        this._age = value;
-    }
+function abcd2(name:string, model: number, cb: (arg:string)=>void){
+    cb("hello")
 }
 
-const user2 = new User1();
-user2.name = 'John';
-user2.age = 30;
-console.log(user2.name, user2.age)
+abcd2("poco", 12, (arg:string)=>{
+    console.log(arg); 
+} )
 
-// Static properties/member
-// - by using static keyword, we can define a property or method that belongs to the class itself, not the instance of the class.
-// - static properties are shared among all instances of the class.
-// - static properties are accessed using the class name.
-// - static properties are defined using the static keyword.
-// - static properties are not available in the instance of the class.
 
-class User3{
-    static count: number = 0;
+// optional and default parameters
+// optional
+function details(name: string, age: number, gender?:string){
+    console.log(name, age, gender);
+}
+
+details("kuch v", 7, "male")
+details("aur kuch", 67)
+
+// default 
+function details2(name: string, age: number, gender:string = "dont know"){
+    console.log(name, age, gender);
+}
+
+details2("kuch v", 7, "male")
+details2("aur kuch", 67)
+
+
+// rest/Spread
+// rest ...
+
+function sum(...val: number[]){
+    console.log(val);
     
 }
+sum(1,2,2,3,4,5,6,78)
 
-console.log(User3.count);
+function cities(...val: string[]){
+    console.log(val)
+}
+cities("sambalpur", "bhubaneswar")
+
+// spread
+
+const arr1 = [1,2,3,4,5,6,7,8]
+const arr2 = [5,6,8,9,0]
+
+const arr3 = [...arr1]
+const arr4 = [...arr1, ...arr2]
 
 
- 
+// function overload
+// Function overloading with different parameter types but same number of parameter
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: any, b: any): any {
+    return a + b;
+}
+
+// Usage examples
+console.log(add(5, 10));        // Returns 15
+console.log(add("Hello ", "World")); // Returns "Hello World"
+
+// Another example with different number of parameters
+function display(value: string): void;
+function display(value: number, isActive: boolean): void;
+function display(value: any, isActive?: boolean): void {
+    if (typeof value === "number") {
+        console.log(`Number: ${value}, Active: ${isActive}`);
+    } else {
+        console.log(`String: ${value}`);
+    }
+}
+
+// Usage examples
+display("Test");           // Calls first overload
+display(42, true);        // Calls second overload
+
+// Generics

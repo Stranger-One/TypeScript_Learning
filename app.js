@@ -1,55 +1,77 @@
-var User = /** @class */ (function () {
-    function User(name, age) {
-        this.name = name;
-        this.age = age;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
     }
-    return User;
-}());
-var user1 = new User('John', 30);
-user1.name = 'Doe';
-console.log(user1.name);
-//  getter and setter
-var User1 = /** @class */ (function () {
-    function User1() {
-        this._name = '';
-        this._age = 0;
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+// Functions 
+function abcd(name, age, cb) {
+    cb();
+}
+abcd("max", 20, function () {
+    console.log("hey max line 7");
+});
+function abcd2(name, model, cb) {
+    cb("hello");
+}
+abcd2("poco", 12, function (arg) {
+    console.log(arg);
+});
+// optional and default parameters
+// optional
+function details(name, age, gender) {
+    console.log(name, age, gender);
+}
+details("kuch v", 7, "male");
+details("aur kuch", 67);
+// default 
+function details2(name, age, gender) {
+    if (gender === void 0) { gender = "dont know"; }
+    console.log(name, age, gender);
+}
+details2("kuch v", 7, "male");
+details2("aur kuch", 67);
+// rest/Spread
+// rest ...
+function sum() {
+    var val = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        val[_i] = arguments[_i];
     }
-    Object.defineProperty(User1.prototype, "name", {
-        get: function () {
-            return this._name;
-        },
-        set: function (value) {
-            this._name = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(User1.prototype, "age", {
-        get: function () {
-            return this._age;
-        },
-        set: function (value) {
-            this._age = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return User1;
-}());
-var user2 = new User1();
-user2.name = 'John';
-user2.age = 30;
-console.log(user2.name, user2.age);
-// Static properties/member
-// - by using static keyword, we can define a property or method that belongs to the class itself, not the instance of the class.
-// - static properties are shared among all instances of the class.
-// - static properties are accessed using the class name.
-// - static properties are defined using the static keyword.
-// - static properties are not available in the instance of the class.
-var User3 = /** @class */ (function () {
-    function User3() {
+    console.log(val);
+}
+sum(1, 2, 2, 3, 4, 5, 6, 78);
+function cities() {
+    var val = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        val[_i] = arguments[_i];
     }
-    User3.count = 0;
-    return User3;
-}());
-console.log(User3.count);
+    console.log(val);
+}
+cities("sambalpur", "bhubaneswar");
+// spread
+var arr1 = [1, 2, 3, 4, 5, 6, 7, 8];
+var arr2 = [5, 6, 8, 9, 0];
+var arr3 = __spreadArray([], arr1, true);
+var arr4 = __spreadArray(__spreadArray([], arr1, true), arr2, true);
+function add(a, b) {
+    return a + b;
+}
+// Usage examples
+console.log(add(5, 10)); // Returns 15
+console.log(add("Hello ", "World")); // Returns "Hello World"
+function display(value, isActive) {
+    if (typeof value === "number") {
+        console.log("Number: ".concat(value, ", Active: ").concat(isActive));
+    }
+    else {
+        console.log("String: ".concat(value));
+    }
+}
+// Usage examples
+display("Test"); // Calls first overload
+display(42, true); // Calls second overload
+// Generics
