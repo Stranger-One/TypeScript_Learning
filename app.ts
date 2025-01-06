@@ -1,88 +1,102 @@
-// Functions 
-function abcd(name:string, age:number, cb: ()=>void){
-    cb()
+// Generics
+// Generics Function
+
+// - We can define the type of a parameter in a function at the time of calling of that function
+
+function display<T>(a: T){
+    console.log(a, typeof(a));
 }
 
-abcd("max", 20, ()=>{
-    console.log("hey max line 7");
-})
+// display<string>("h")
+// display<number>(12)
+// display(true) 
 
+// Generics Interfaces
 
-function abcd2(name:string, model: number, cb: (arg:string)=>void){
-    cb("hello")
+interface kuchBhi <T> {
+    name: string,
+    age: number,
+    key: T
 }
 
-abcd2("poco", 12, (arg:string)=>{
-    console.log(arg); 
-} )
-
-
-// optional and default parameters
-// optional
-function details(name: string, age: number, gender?:string){
-    console.log(name, age, gender);
-}
-
-details("kuch v", 7, "male")
-details("aur kuch", 67)
-
-// default 
-function details2(name: string, age: number, gender:string = "dont know"){
-    console.log(name, age, gender);
-}
-
-details2("kuch v", 7, "male")
-details2("aur kuch", 67)
-
-
-// rest/Spread
-// rest ...
-
-function sum(...val: number[]){
-    console.log(val);
+function abcd(obj: kuchBhi<string>){
+    console.log(obj);
     
 }
-sum(1,2,2,3,4,5,6,78)
-
-function cities(...val: string[]){
-    console.log(val)
-}
-cities("sambalpur", "bhubaneswar")
-
-// spread
-
-const arr1 = [1,2,3,4,5,6,7,8]
-const arr2 = [5,6,8,9,0]
-
-const arr3 = [...arr1]
-const arr4 = [...arr1, ...arr2]
+// abcd({name: "mark", age: 23, key: "jahsfaue"})
 
 
-// function overload
-// Function overloading with different parameter types but same number of parameter
-function add(a: number, b: number): number;
-function add(a: string, b: string): string;
-function add(a: any, b: any): any {
-    return a + b;
+// Generics Classes
+
+class BottleMaker <T> {
+    constructor(public key: T){}
 }
 
-// Usage examples
-console.log(add(5, 10));        // Returns 15
-console.log(add("Hello ", "World")); // Returns "Hello World"
+const b1 = new BottleMaker<string>("hey")
+const b2 = new BottleMaker(12)
 
-// Another example with different number of parameters
-function display(value: string): void;
-function display(value: number, isActive: boolean): void;
-function display(value: any, isActive?: boolean): void {
-    if (typeof value === "number") {
-        console.log(`Number: ${value}, Active: ${isActive}`);
+
+// Type Assertion / Type casting
+// Type Assertion
+let a: any;
+
+// (a as string)
+// (<string>a)
+
+
+// Type casting
+let b = Number("12")
+// Type of b ==>> number
+// console.log(typeof b);
+
+// Non-null assertion operator
+let nn: null | undefined | number;
+
+nn=12
+
+// nn!.
+
+
+// Type Guards
+function guard(a:string|number|any){
+    if(typeof a === "string"){ // type narrowing
+        return "string"
+    } else if (typeof a === "number"){
+        return "number"
     } else {
-        console.log(`String: ${value}`);
+        throw new Error("kuch bhi")
     }
 }
 
-// Usage examples
-display("Test");           // Calls first overload
-display(42, true);        // Calls second overload
+// console.log(guard(12))
+// console.log(guard("12"))
+// console.log(guard(true))
 
-// Generics
+// ///////
+class TvRemote{
+    switchOfTv(){
+        console.log("Switching off tv ...");
+    }
+}
+
+class CarRemote{
+    switchOfCar(){
+        console.log("Switching off car ...");
+    }
+}
+
+const tv1 = new TvRemote()
+const car1 = new CarRemote()
+
+function switchOff(device: TvRemote | CarRemote){
+    if(device instanceof TvRemote){
+        device.switchOfTv()
+    } else if (device instanceof CarRemote){
+        device.switchOfCar()
+    } else {
+
+    }
+}
+
+// switchOff(tv1)
+// switchOff(car1)

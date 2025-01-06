@@ -449,5 +449,103 @@ function display(value: any, isActive?: boolean): void {
 }
 ```
 
+## Generics
+Generics allow you to write flexible, reusable code that works with multiple types.
+
+### Generic Functions
+Define type parameters at function call time:
+```typescript
+function display<T>(a: T) {
+    console.log(a, typeof(a));
+}
+
+display<string>("h");      // Explicit type
+display<number>(12);       // Explicit type
+display(true);            // Type inference
+```
+
+### Generic Interfaces
+```typescript
+interface KuchBhi<T> {
+    name: string,
+    age: number,
+    key: T
+}
+
+function abcd(obj: KuchBhi<string>) {
+    console.log(obj);
+}
+```
+
+### Generic Classes
+```typescript
+class BottleMaker<T> {
+    constructor(public key: T) {}
+}
+
+const b1 = new BottleMaker<string>("hey");  // Explicit type
+const b2 = new BottleMaker(12);             // Inferred type
+```
+
+## Type Assertions and Casting
+### Type Assertion
+Two ways to assert types:
+```typescript
+let a: any;
+(a as string);    // Method 1
+(<string>a);      // Method 2
+```
+
+### Type Casting
+Convert between types:
+```typescript
+let b = Number("12");  // Type of b is number
+```
+
+### Non-null Assertion
+Use ! to assert value is non-null:
+```typescript
+let nn: null | undefined | number;
+nn = 12;
+nn!.toString();  // Assert nn is not null/undefined
+```
+
+## Type Guards
+Type guards help narrow down types in conditional blocks:
+
+### typeof Type Guard
+```typescript
+function guard(a: string | number | any) {
+    if (typeof a === "string") {
+        return "string";
+    } else if (typeof a === "number") {
+        return "number";
+    }
+}
+```
+
+### instanceof Type Guard
+```typescript
+class TvRemote {
+    switchOfTv() {
+        console.log("Switching off tv ...");
+    }
+}
+
+class CarRemote {
+    switchOfCar() {
+        console.log("Switching off car ...");
+    }
+}
+
+function switchOff(device: TvRemote | CarRemote) {
+    if (device instanceof TvRemote) {
+        device.switchOfTv();
+    } else if (device instanceof CarRemote) {
+        device.switchOfCar();
+    }
+}
+```
+
 
 
